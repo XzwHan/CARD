@@ -1,0 +1,24 @@
+# ignore directories
+.ipynb_checkpoints/
+__pycache__/
+UCI_Datasets/
+tensorboard/
+training_image_samples/
+sampling_image_samples/
+testing_image_samples/
+
+
+# OS generated files
+.DS_Store
+
+
+# file type
+*.txt
+*.pth
+*.pdf
+*.ipynb
+
+
+# IntelliJ IDEA
+.idea/
+*.iml

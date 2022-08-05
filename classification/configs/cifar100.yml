@@ -1,0 +1,102 @@
+data:
+    dataset: "CIFAR100"
+    seed: 2000
+    label_min_max: [0.001, 0.999]
+    num_classes: 100
+    num_workers: 4
+    dataroot: '/data/datasets/images/cifar100'
+
+model:
+    type: "simple"
+    data_dim: 3072
+#    data_dim: [3, 32, 32]
+    n_input_channels: 3
+    n_input_padding: 0
+    feature_dim: 6144
+    hidden_dim: 6144
+    cat_x: True
+    cat_y_pred: True
+    arch: linear
+#    arch: resnet18
+    var_type: fixedlarge
+    ema_rate: 0.9999
+    ema: True
+
+diffusion:
+    beta_schedule: linear  # cosine_anneal, cosine
+    beta_start: 0.0001
+    beta_end: 0.02
+    timesteps: 1000
+    vis_step: 100
+    num_figs: 10
+    include_guidance: True  # concat y_t with aux pred as eps_theta input
+    apply_aux_cls: True
+    trained_aux_cls_ckpt_path: "/data/classification/pretrained/cifar100_ckpt"
+    trained_aux_cls_ckpt_name: "snapshot_supervised.ckpt"
+#    trained_aux_cls_ckpt_name: "snapshot_self_supervised.ckpt"
+    aux_cls:
+        arch: resnet18_ckpt  # lenet5
+        pre_train: False
+        joint_train: False
+        n_pretrain_epochs: 10
+        logging_interval: 1
+    
+training:
+    batch_size: 256
+    n_epochs: 1000
+    warmup_epochs: 40
+    add_t0_loss: False
+    n_steps_req_grad: 100
+    n_minibatches_add_ce: 20
+    n_ce_epochs_warmup: 10
+    n_ce_epochs_interval: 50
+    n_sanity_check_epochs_freq: 500
+    snapshot_freq: 1000000000
+    logging_freq: 1200
+    validation_freq: 10
+    image_folder: 'training_image_samples'
+
+sampling:
+    batch_size: 256
+    sampling_size: 1000
+    last_only: True
+    image_folder: 'sampling_image_samples'
+
+testing:
+    batch_size: 250
+    sampling_size: 1000
+    last_only: True
+    plot_freq: 200
+    image_folder: 'testing_image_samples'
+    n_samples: 100
+    n_bins: 10
+    compute_metric_all_steps: False
+    metrics_t: 0
+    ttest_alpha: 0.05
+    trimmed_mean_range: [0.0, 100.0]
+    PICP_range: [2.5, 97.5]
+    make_plot: True
+    squared_plot: True
+    plot_true: True
+    plot_gen: True
+    fig_size: [8, 5]
+
+optim:
+    weight_decay: 0.000
+    optimizer: "Adam"
+    lr: 0.001
+    beta1: 0.9
+    amsgrad: False
+    eps: 0.00000001
+    grad_clip: 1.0
+    lr_schedule: True
+    min_lr: 0.0
+
+aux_optim:
+    weight_decay: 0.000
+    optimizer: "Adam"
+    lr: 0.001
+    beta1: 0.9
+    amsgrad: True
+    eps: 0.00000001
+    grad_clip: 1.0

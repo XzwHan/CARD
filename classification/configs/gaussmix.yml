@@ -1,0 +1,87 @@
+data:
+    dataset: "gaussian_mixture"
+    dataset_size: 10240
+    seed: 2000
+    dist_dict: {"means": [-1, 0.5, 2], "sds": [0.4, 0.45, 0.3], "probs": [0.5, 0.2, 0.3]}
+    label_min_max: [0.001, 0.999]
+    num_classes: 3
+    train_ratio: 0.8
+    num_workers: 0
+    normalize_x: False
+    normalize_y: False
+
+model:
+    type: "simple"
+    data_dim: 1
+    feature_dim: 128
+    cat_x: True
+    cat_y_pred: True
+    arch: linear
+    var_type: fixedlarge
+    ema_rate: 0.9999
+    ema: True
+
+diffusion:
+    beta_schedule: linear  # cosine_anneal
+    beta_start: 0.0001
+    beta_end: 0.02
+    timesteps: 1000
+    vis_step: 100
+    num_figs: 10
+
+training:
+    batch_size: 256
+    n_epochs: 5000
+    add_t0_loss: False
+    n_ce_epochs_warmup: 10
+    n_ce_epochs_interval: 100
+    n_sanity_check_epochs_freq: 500
+    n_iters: 100000
+    snapshot_freq: 1000000000
+    logging_freq: 320
+    validation_freq: 16000
+    image_folder: 'training_image_samples'
+
+sampling:
+    batch_size: 256
+    sampling_size: 1000
+    last_only: True
+    image_folder: 'sampling_image_samples'
+
+testing:
+    batch_size: 256
+    sampling_size: 1000
+    last_only: True
+    plot_freq: 200
+    image_folder: 'testing_image_samples'
+    n_samples: 100
+    n_bins: 10
+    compute_metric_all_steps: True
+    metrics_t: 0
+    trimmed_mean_range: [0.0, 100.0]
+    PICP_range: [2.5, 97.5]
+    make_plot: True
+    squared_plot: False
+    plot_true: True
+    plot_gen: True
+    fig_size: [8, 5]
+
+optim:
+    weight_decay: 0.000
+    optimizer: "Adam"
+    lr: 0.001
+    beta1: 0.9
+    amsgrad: false
+    eps: 0.00000001
+    grad_clip: 1.0
+    lr_schedule: false
+
+aux_optim:
+    weight_decay: 0.000
+    optimizer: "Adam"
+    lr: 0.001
+    beta1: 0.9
+    amsgrad: True
+    eps: 0.00000001
+    grad_clip: 1.0
+    lr_schedule: false
