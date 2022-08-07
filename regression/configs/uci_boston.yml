@@ -15,7 +15,6 @@ model:
     y_dim: 1
     z_dim: 2
     cat_x: True
-#    cat_y_pred: True
     feature_dim: 128
     var_type: fixedlarge
     ema_rate: 0.9999
@@ -23,10 +22,10 @@ model:
 
 diffusion:
     beta_schedule: linear  # cosine
-    beta_start: 0.001
-    beta_end: 0.175
-    timesteps: 100
-    vis_step: 10
+    beta_start: 0.0001
+    beta_end: 0.02
+    timesteps: 1000
+    vis_step: 100
     num_figs: 10
     conditioning_signal: "NN"
     nonlinear_guidance:

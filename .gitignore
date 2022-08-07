@@ -1,11 +1,7 @@
 # ignore directories
 .ipynb_checkpoints/
 __pycache__/
-UCI_Datasets/
-tensorboard/
-training_image_samples/
-sampling_image_samples/
-testing_image_samples/
+results/
 
 
 # OS generated files

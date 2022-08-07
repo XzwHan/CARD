@@ -3,10 +3,10 @@ export N_STEPS=100
 export SERVER_NAME=a4000
 export RUN_NAME=run_1
 export LOSS=card_conditional
-export TASK=uci_boston
+export TASK=uci_protein
 export N_SPLITS=20
 export N_THREADS=4
-export DEVICE_ID=1
+export DEVICE_ID=0
 
 export CAT_F_PHI=_cat_f_phi
 export MODEL_VERSION_DIR=card_conditional_uci_results/${N_STEPS}steps/nn/${RUN_NAME}_${SERVER_NAME}/f_phi_prior${CAT_F_PHI}
