@@ -1,5 +1,5 @@
 export EXP_DIR=./results
-export N_STEPS=100
+export N_STEPS=1000
 export SERVER_NAME=a4000
 export RUN_NAME=run_1
 export LOSS=card_conditional
