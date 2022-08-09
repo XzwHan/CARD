@@ -3,8 +3,8 @@ export N_STEPS=100
 export SERVER_NAME=a4000
 export RUN_NAME=run_1
 export LOSS=card_conditional
-export TASK=uci_protein
-export N_SPLITS=5
+export TASK=uci_concrete
+export N_SPLITS=20
 export N_THREADS=4
 export DEVICE_ID=0
 
