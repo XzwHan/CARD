@@ -4,6 +4,19 @@ This repo contains the official implementation for the paper [CARD: Classificati
 
 --------------------
 
+## How to Run the Code
+
+### Dependencies
+
+We recommend configuring the environment through [`conda`](https://conda.io/projects/conda/en/latest/user-guide/getting-started.html). Run the following to install and to activate the environment 
+
+```sh
+conda env create -f environment.yml
+conda activate card
+```
+
+The name of the environment is set to **card** by default. You can modify the first line of the `environment.yml` file to set the new environment's name.
+
 ## References
 
 If you find the code helpful for your research, please consider citing
