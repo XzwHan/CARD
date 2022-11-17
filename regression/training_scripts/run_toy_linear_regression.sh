@@ -4,7 +4,7 @@ export SERVER_NAME=a4000
 export RUN_NAME=run_1
 export LOSS=card_conditional
 export TASK=toy_linear_regression
-export N_SPLITS=1
+export N_SPLITS=10
 export N_THREADS=4
 export DEVICE_ID=2
 
