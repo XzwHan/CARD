@@ -29,7 +29,7 @@ We provide the scripts of model training and evaluation for the tasks reported i
 * Classification
   * CIFAR-10, CIFAR-100, ImageNet, FashionMNIST, MNIST (noisy)
 
-Note that for the UCI regression tasks, all data and the corresponding split schemes are adapted through the official repo of MC Dropout [here](https://github.com/yaringal/DropoutUncertaintyExps), except the [YearPredictionMSD](https://archive.ics.uci.edu/ml/datasets/yearpredictionmsd) dataset due to its size.
+Note that for the UCI regression tasks, all data and the corresponding split schemes are adapted through [the official repo of MC Dropout](https://github.com/yaringal/DropoutUncertaintyExps), except the [YearPredictionMSD](https://archive.ics.uci.edu/ml/datasets/yearpredictionmsd) dataset due to its size. A link to the full UCI dataset that we used for our experiments can be found [here](https://drive.google.com/drive/u/5/folders/16L5Dy9qw3StCY4AvtP98KA5xDZrtcHV3) for download.
   
 We provide the following example to run the model on the Boston Housing regression task:
 
