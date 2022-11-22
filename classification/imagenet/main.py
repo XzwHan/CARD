@@ -77,11 +77,15 @@ parser.add_argument('--dist-url', default='tcp://224.66.41.62:23456', type=str,
 parser.add_argument('--dist-backend', default='nccl', type=str,
                     help='distributed backend')
 parser.add_argument('--seed', default=None, type=int,
-                    help='seed for initializing training. ')
+                    help='seed for initializing training.')
 parser.add_argument('--num_classes', default=100, type=int,
-                    help='number of classes of the linear head. ')
+                    help='number of classes of the linear head.')
 parser.add_argument('--num_timesteps', default=10, type=int,
-                    help='number of diffusion steps. ')
+                    help='number of diffusion steps.')
+parser.add_argument('--beta_1', default=0.01, type=float,
+                    help='beta_1 of the linear variance schedule for the diffusion process.')
+parser.add_argument('--beta_T', default=0.95, type=float,
+                    help='beta_T of the linear variance schedule for the diffusion process.')
 parser.add_argument('--gpu', default=None, type=int,
                     help='GPU id to use.')
 parser.add_argument('--multiprocessing-distributed', action='store_true',
@@ -93,7 +97,7 @@ parser.add_argument('--output_dir', default=".", type=str, help='Path to save lo
 
 # additional configs:
 parser.add_argument('--pretrained', default='', type=str,
-                    help='path to simsiam pretrained checkpoint')
+                    help='path to pretrained checkpoint')
 parser.add_argument('--lars', action='store_true',
                     help='Use LARS')
 
@@ -178,7 +182,7 @@ def main_worker(gpu, ngpus_per_node, args):
             print("=> loading checkpoint '{}'".format(args.pretrained))
             checkpoint = torch.load(args.pretrained, map_location="cpu")
 
-            # rename moco pre-trained keys
+            # rename pre-trained keys
             state_dict = checkpoint['state_dict']
             state_dict_encoder = {}
             state_dict_linear = {}
@@ -360,7 +364,8 @@ def train(train_loader, model, criterion, optimizer, epoch, args):
     model.module.model_phi.eval()
 
     # diffusion configs
-    betas = card.diffusion_utils.make_beta_schedule(schedule="linear", num_timesteps=10, start=0.01, end=0.95).cuda(
+    betas = card.diffusion_utils.make_beta_schedule(schedule="linear", num_timesteps=args.num_timesteps, 
+        start=args.beta_1, end=args.beta_T).cuda(
         args.gpu, non_blocking=True)
     betas_sqrt = torch.sqrt(betas)
     alphas = 1.0 - betas
@@ -441,7 +446,8 @@ def validate(val_loader, model, criterion, args):
     model.eval()
 
     # diffusion configs
-    betas = card.diffusion_utils.make_beta_schedule(schedule="linear", num_timesteps=10, start=0.01, end=0.95).cuda(
+    betas = card.diffusion_utils.make_beta_schedule(schedule="linear", num_timesteps=args.num_timesteps, 
+        start=args.beta_1, end=args.beta_T).cuda(
         args.gpu, non_blocking=True)
     betas_sqrt = torch.sqrt(betas)
     alphas = 1.0 - betas
@@ -510,7 +516,8 @@ def save_prediction(val_loader, model, criterion, args):
     model.eval()
 
     # diffusion configs
-    betas = card.diffusion_utils.make_beta_schedule(schedule="linear", num_timesteps=10, start=0.01, end=0.95).cuda(
+    betas = card.diffusion_utils.make_beta_schedule(schedule="linear", num_timesteps=args.num_timesteps, 
+        start=args.beta_1, end=args.beta_T).cuda(
         args.gpu, non_blocking=True)
     betas_sqrt = torch.sqrt(betas)
     alphas = 1.0 - betas
