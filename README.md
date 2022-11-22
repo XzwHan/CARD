@@ -44,6 +44,10 @@ The configuration for each of the above listed tasks (including data file locati
 * `training_image_samples`: plots during training
 * `testing_image_samples`: plots when evaluating the model
 
+## Checkpoints
+
+The checkpoints of all 10 UCI regression tasks and all image classification tasks have been uploaded to Google Drive, and can be accessed and downloaded [here](https://drive.google.com/drive/u/5/folders/1hWT3kW7KssDnfBMJVMedFC14JfELmczM).
+
 ## References
 
 If you find the code helpful for your research, please consider citing
