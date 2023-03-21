@@ -32,8 +32,8 @@ diffusion:
     include_guidance: True  # concat y_t with aux pred as eps_theta input
     apply_aux_cls: True
     trained_aux_cls_ckpt_path: "/data/classification/pretrained/cifar10_ckpt"
-#    trained_aux_cls_ckpt_name: "snapshot_supervised.ckpt"
-    trained_aux_cls_ckpt_name: "snapshot_self_supervised.ckpt"
+    trained_aux_cls_ckpt_name: "snapshot_supervised.ckpt"  # test accuracy 90.39%, applied in the paper
+#    trained_aux_cls_ckpt_name: "snapshot_self_supervised.ckpt"  # test accuracy 94.31%
     aux_cls:
         arch: resnet18_ckpt  # lenet5
         pre_train: False
